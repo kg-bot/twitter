@@ -18,5 +18,8 @@ $loader->registerDirs(
 $loader->registerNamespaces(
     [
         'Models\Posts' => 'app/models/posts/',
+        'Models\Users' => 'app/models/users/',
+        'Twitter\Controllers' => 'app/controllers/',
+        'App' => 'app/',
     ]
 )->register();

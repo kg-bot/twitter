@@ -8,11 +8,6 @@ use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
 
-use Phalcon\Acl\Adapter\Memory as AclList;
-use Phalcon\Acl;
-use Phalcon\Acl\Role;
-use Phalcon\Acl\Resource;
-
 /**
  * Shared configuration service
  */
@@ -114,46 +109,4 @@ $di->setShared('session', function () {
     $session->start();
 
     return $session;
-});
-
-/**
- * Registering ACL
- */
-$di->set('acl', function() {
-    $acl = new AclList();
-
-    $acl->setDefaultAction(
-        Acl::DENY
-    );
-
-    $roleAdmin = new Role('Admin');
-    $roleUser = new Role('User');
-
-    $acl->addRole($roleAdmin);
-    $acl->addRole($roleUser);
-
-    $deleteResource = new Resource('Delete');
-    $postResource = new Resource('Post');
-
-    $acl->addResource(
-        $deleteResource,
-        [
-            'own',
-            'admin',
-        ]
-    );
-    $acl->addResource(
-        $postResource,
-        'create'
-    );
-
-    $acl->allow('Admin', 'Delete', 'own');
-    $acl->allow('Admin', 'Delete', 'admin');
-    $acl->allow('Admin', 'Post', 'create');
-
-    $acl->allow('User', 'Delete', 'own');
-    $acl->allow('User', 'Post', 'create');
-    $acl->deny('User', 'Delete', 'admin');
-
-    return $acl;
 });
