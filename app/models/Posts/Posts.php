@@ -1,7 +1,7 @@
 <?php
-namespace Twitter\Models\Posts
+namespace Twitter\Models\Posts;
 
-use Twitter\Models\Posts\Interfaces\PostsInterface
+use Twitter\Models\Posts\Interfaces\PostsInterface;
 use Phalcon\Mvc\Model;
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\Email;

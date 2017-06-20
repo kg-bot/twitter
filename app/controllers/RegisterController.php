@@ -2,6 +2,7 @@
 
 use Twitter\Models\Users\Users;
 use Twitter\Library\Forms\RegisterForm;
+use Twitter\Library\Helpers\IsUserRegistered;
 
 class RegisterController extends ControllerBase
 {
@@ -35,19 +36,7 @@ class RegisterController extends ControllerBase
     private function __isUserRegistered()
     {
         if ($this->getEmail() !== null) {
-            $user = Users::findFirst(
-                [
-                    'conditions' => 'email = ?1',
-                    'bind' => [
-                        1 => $this->getEmail(),
-                    ]
-                ]
-            );
-            if ($user !== false) {
-                return true;
-            } else {
-                return false;
-            }
+            return IsUserRegistered::isUserRegistered($this->getEmail());
         } else {
             return null;
         }

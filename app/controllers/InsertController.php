@@ -3,7 +3,7 @@ use Models\Posts\Interfaces\PostsInterface;
 use Models\Posts\Posts;
 use Phalcon\Http\Response;
 
-class DeleteController extends ControllerBase
+class InsertController extends ControllerBase
 {
     protected $postId;
     protected $email = null;
@@ -106,3 +106,4 @@ class DeleteController extends ControllerBase
     }
 
 }
+

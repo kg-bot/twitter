@@ -20,6 +20,7 @@ $loader->registerNamespaces(
         'Twitter\Models\Posts' => $config->application->modelsDir .'Posts/',
         'Twitter\Models\Users' => $config->application->modelsDir .'Users/',
         'Twitter\Controllers' => $config->application->controllersDir,
+        'Twitter\Library\Helpers' => $config->application->libraryDir .'/helpers/',
         'Twitter\Library\Forms' => $config->application->libraryDir .'Forms/',
     ]
 );
