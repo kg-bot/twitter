@@ -17,9 +17,10 @@ $loader->registerDirs(
  */
 $loader->registerNamespaces(
     [
-        'Models\Posts' => 'app/models/posts/',
-        'Models\Users' => 'app/models/users/',
-        'Twitter\Controllers' => 'app/controllers/',
-        'App' => 'app/',
+        'Twitter\Models\Posts' => $config->application->modelsDir .'Posts/',
+        'Twitter\Models\Users' => $config->application->modelsDir .'Users/',
+        'Twitter\Controllers' => $config->application->controllersDir,
+        'Twitter\Library\Forms' => $config->application->libraryDir .'Forms/',
     ]
-)->register();
+);
+$loader->register();

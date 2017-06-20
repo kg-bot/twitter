@@ -1,5 +1,5 @@
 <?php
-namespace Models\Posts\Interfaces
+namespace Twitter\Models\Posts\Interfaces
 
 interface PostsInterface
 {

@@ -1,7 +1,7 @@
 <?php
-namespace Models\Users;
+namespace Twitter\Models\Users;
 
-use Models\Users\Interfaces\UsersInterface
+use Twitter\Models\Users\Interfaces\UsersInterface;
 use Phalcon\Mvc\Model;
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\Email;
@@ -14,6 +14,8 @@ class Users extends Model implements UsersInterface
     protected $email;
 
     protected $password;
+
+    protected $validator;
 
     public function onConstruct()
     {
@@ -43,7 +45,7 @@ class Users extends Model implements UsersInterface
     }
     public function setEmail(string $email)
     {
-        if (count($this->validator->validate($email))) {
+        if (count($this->validator->validate(['email' => $email]))) {
             throw new InvalidArgumentException(
                 'Invalid email address'
             );
@@ -58,6 +60,6 @@ class Users extends Model implements UsersInterface
     }
     public function setPassword($password)
     {
-        $this->password = $this->security->hash($password);
+        $this->password = $password;
     }
 }

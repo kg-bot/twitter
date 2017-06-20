@@ -1,0 +1,15 @@
+<form action=<?php echo $this->url->get('register/'); ?> method="post">
+  <div class="form-group">
+    <?php echo $form->render('email'); ?>
+  </div>
+  <div class="form-group">
+    <?php echo $form->render('password'); ?>
+  </div>
+  <div class="form-group">
+    <?php echo $form->render("confirmPassword"); ?>
+  </div>
+  <div class="form-group">
+    <?php echo $form->render('csrf'); ?>
+  </div>
+  <?php echo $form->render('Register'); ?>
+</form>

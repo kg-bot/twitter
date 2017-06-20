@@ -10,8 +10,8 @@ return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
         'host'        => 'localhost',
-        'username'    => 'root',
-        'password'    => '',
+        'username'    => 'twitter',
+        'password'    => 'temp123',
         'dbname'      => 'twitter',
         'charset'     => 'utf8',
     ],

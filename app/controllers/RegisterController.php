@@ -1,6 +1,7 @@
 <?php
 
-use Models\Users\Users;
+use Twitter\Models\Users\Users;
+use Twitter\Library\Forms\RegisterForm;
 
 class RegisterController extends ControllerBase
 {
@@ -27,7 +28,7 @@ class RegisterController extends ControllerBase
     }
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = $this->security->hash($password);
     }
 
 
@@ -70,10 +71,10 @@ class RegisterController extends ControllerBase
     public function indexAction()
     {
         if ($this->request->isPost()) {
-            $this->setEmail($this->request->getPost('email', 'email', null));
-            $this->setPassword($this->request->getPost('password', 'striptags', null));
-
-            if ($this->security->checkToken()) {
+            $form = new RegisterForm();
+            if ($form->isValid($this->request->getPost()) != false) {
+                $this->setEmail($this->request->getPost('email', 'email', null));
+                $this->setPassword($this->request->getPost('password', 'striptags', null));
                 if ($this->__isUserRegistered() === false) {
                     $newUser = $this->__addNewUser();
 
@@ -82,14 +83,19 @@ class RegisterController extends ControllerBase
                     } elseif ($newUser === false) {
                         $this->view->error = 'There was some error when adding new user.';
                     } else {
+                        $this->session->set('auth', true);
+                        $this->session->set('email', $this->getEmail());
+                        
                         $this->response->redirect();
                     }
+                } else {
+                    $this->view->error = 'User is already registered';
                 }
             } else {
-                $this->view->error = 'Invalid CSRF token.';
+                $this->view->error = $form->messages();
             }
         } else {
-            $this->view->error = 'You must request this page over POST.';
+            $this->response->redirect();
         }
     }
 }

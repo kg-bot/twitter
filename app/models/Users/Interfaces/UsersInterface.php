@@ -1,19 +1,19 @@
 <?php
-namespace Models\Users\Interfaces;
+namespace Twitter\Models\Users\Interfaces;
 
 interface UsersInterface
 {
-    public function onConstruct()
+    public function onConstruct();
 
-    public function getId()
+    public function getId();
 
-    public function setId(int $id)
+    public function setId(int $id);
 
-    public function getEmail()
+    public function getEmail();
 
-    public function setEmail(string $email)
+    public function setEmail(string $email);
 
-    public function getPassword()
+    public function getPassword();
 
-    public function setPassword($password)
+    public function setPassword($password);
 }
