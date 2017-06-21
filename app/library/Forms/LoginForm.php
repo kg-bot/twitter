@@ -48,11 +48,6 @@ class LoginForm extends Form
         $password->addValidators([
             new PresenceOf([
                 'message' => 'Password field is required.'
-            ]),
-            new StringLength([
-                'min' => 5,
-                'max' => 255,
-                'message' => 'Password must be between 5 and 255 characters.'
             ])
         ]);
 

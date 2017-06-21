@@ -15,9 +15,7 @@ class IndexController extends ControllerBase
             $this->view->form = new RegisterForm();
             $this->view->loginForm = new LoginForm();
         } else {
-            $posts = Posts::find();
-            echo 'There are ', count($posts), " posts.\n";
-            die();
+            $this->view->posts = Posts::find();
         }
     }
 

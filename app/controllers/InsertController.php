@@ -5,17 +5,15 @@ use Phalcon\Http\Response;
 
 class InsertController extends ControllerBase
 {
-    protected $postId;
-    protected $email = null;
-    protected $who;
+    protected $postContent;
 
-    public function setPostId(int $postId)
+    public function getPostContent()
     {
-        $this->postId = $postId;
+        return $this->postContent;
     }
-    public function getPostId()
+    public function setPostContent($postContent)
     {
-        return $this->postId;
+        $this->postContent = substr($postContent, 0, 255);
     }
 
     public function setEmail(string $email)
@@ -27,15 +25,6 @@ class InsertController extends ControllerBase
         return $this->email;
     }
 
-    public function setWho(string $who)
-    {
-        $this->who = $who;
-    }
-    public function getWho()
-    {
-        return $this->who;
-    }
-
     public function indexAction()
     {
         $this->view->disable();
@@ -43,9 +32,10 @@ class InsertController extends ControllerBase
         if ($this->request->isPost() && $this->request->isAjax()) {
             // We need to check if user is authenticated
             if ($this->session->has('auth')) {
-                $this->setPostId($this->request->getPost('post_id', 'int', 1));
+                $this->setPostContent($this->request->getPost('postContent', 'striptags'));
                 $this->setEmail($this->session->get('email'));
-                echo json_encode( $this->__deletePost());
+                
+                echo json_encode( $this->__insertPost());
             } else {
                 $this->response->redirect();
             }
@@ -54,52 +44,19 @@ class InsertController extends ControllerBase
         }
     }
 
-    private function __deletePost()
+    private function __insertPost()
     {
-        // If user is not admin we must provide email
-        if ($this->getWho() === 'user' && $this->getEmail() !== null) {
-            $post = Posts::findFirst(
-                [
-                    'conditions' => 'id = ?1 AND email = ?2',
-                    'bind' => [
-                        1 => $this->getPostId(),
-                        2 => $this->getEmail(),
-                    ]
-                ]
-            );
-            if ($post !== false) {
-                // Post is own, we can delete it
-                if ($post->delete() === false) {
-                    $data = ['error' => 'There was some error while deleting your post'];
-                } else {
-                    $data = ['success' => 'Your post is deleted'];
-                }
-            } else {
-                $data = ['error' => 'This post is not your\'s, you can\'t delete it.'];
-            }
-        } elseif ($who === 'admin') {
-            // If user is admin we don't need email becuase admin can delete everything
-            $post = Posts::findFirst(
-                [
-                    'conditions' => 'id = ?1',
-                    'bind' => [
-                        1 => $this->getPostId(),
-                    ]
-                ]
-            );
+        if ($this->getEmail() !== null) {
+            
+            $post = new Posts();
+            $post->setEmail($this->getEmail());
+            $post->setPost((string) $this->getPostContent());
 
-            if ($post !== false) {
-                // Post is own, we can delete it
-                if ($post->delete() === false) {
-                    $data = ['error' => 'There was some error while deleting your post'];
-                } else {
-                    $data = ['success' => 'Your post is deleted'];
-                }
+            if ($post->create() === false) {
+                $data = ['error' => 'Couldn\'t create new post.'];
             } else {
-                $data = ['error' => 'This post does not exist.'];
+                $this->response->redirect();
             }
-        } else {
-            $data = ['error' => 'You are not allowed to modify posts.'];
         }
 
         return $data;

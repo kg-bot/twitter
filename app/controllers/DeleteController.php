@@ -45,6 +45,8 @@ class DeleteController extends ControllerBase
             if ($this->session->has('auth')) {
                 $this->setPostId($this->request->getPost('post_id', 'int', 1));
                 $this->setEmail($this->session->get('email'));
+                $this->setWho($this->session->get('role'));
+                
                 echo json_encode( $this->__deletePost());
             } else {
                 $this->response->redirect();

@@ -45,7 +45,7 @@ class LoginController extends ControllerBase
     private function __authUser()
     {
         if($this->getEmail() !== null && $this->getPassword() !== null) {
-            if ($this->getEmail() === $this->config->adminEmail) {
+            if ($this->getEmail() == $this->config->application->adminEmail) {
                 // This is admin user
                 $this->session->set('role', 'admin');
             } else {
