@@ -17,6 +17,11 @@ Modify app/config/config.php database entry to your needs and according to your 
 
 You should also setup virtual host to your project but that is not required.
 
+## Attention ##
+
+Admin user credentials are `admin@twitter.com` and `temp123`.
+MySQL user credentials are User: `twitter`, password: `temp1234`.
+
 ##### Feedback #####
 
 Please leave comments, suggestions, open issues if you find some bugs and thank you for your time.
