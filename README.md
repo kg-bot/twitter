@@ -4,12 +4,12 @@
 
 #### Required software ####
 
-1. (Phalcon)[https://phalconphp.com/] - read installation instructions
-2. (GIT)[https://git-scm.com/] - ** Optional **
+1. [Phalcon](https://phalconphp.com/) - __read installation instructions__
+2. [GIT](https://git-scm.com/) - **Optional**
 
-#### Instalation ####
+#### Installation ####
 
-If you have setup Phalcon then use GIT to clone this repo to your local environment, somewhere where web server can access it.
+If you have setup Phalcon then use GIT to clone this repo to your local environment or download and extract it manually, somewhere where web server can access it.
 
 Second, you have to import twitter.sql to your MySQL server.
 
